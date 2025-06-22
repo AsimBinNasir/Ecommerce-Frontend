@@ -23,7 +23,8 @@ leftDiv.appendChild(categoryTitle);
 const ul = document.createElement("ul");
 ul.className = "space-y-4 bg-gray-100 p-3 border";
 
-categories.forEach(text => {
+// Create li elements using map
+const liElements = categories.map((category, index) => {
   const li = document.createElement("li");
   li.className = "flex items-center text-sm font-medium";
 
@@ -31,10 +32,14 @@ categories.forEach(text => {
   dot.className = "w-2 h-2 border border-red-600 rounded-full mr-2";
 
   li.appendChild(dot);
-  li.appendChild(document.createTextNode(text));
-  ul.appendChild(li);
+  li.appendChild(document.createTextNode(category));
+  return li;
 });
 
+// Append all li elements to ul
+liElements.forEach(li => ul.appendChild(li));
+
+// Append ul to parent
 leftDiv.appendChild(ul);
 
 // ==== Right Image Section ====
