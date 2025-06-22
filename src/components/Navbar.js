@@ -1,4 +1,4 @@
-export default function Navbar() {
+export default function Navbar(loadPage) {
   const nav = document.createElement("nav");
   nav.className = "bg-white shadow-md";
 
@@ -67,14 +67,20 @@ export default function Navbar() {
   container.appendChild(rightIcons);
 
   // === Navigation Links ===
+  const pages = ["Home", "Shop", "Contact", "About"];
   const navLinks = document.createElement("div");
   navLinks.className = "flex items-center justify-center space-x-10 py-4 text-sm font-bold";
 
-  ["Home", "Shop", "Contact", "About"].forEach((text) => {
+  pages.forEach((text) => {
     const link = document.createElement("a");
-    link.href = "/";
+    link.href = "#";
     link.className = "hover:underline";
     link.textContent = text;
+    
+    link.addEventListener("click", () => {
+    loadPage(text); // dynamically load the component
+  });
+  
     navLinks.appendChild(link);
   });
 
@@ -83,3 +89,4 @@ export default function Navbar() {
 
   return nav;
 }
+

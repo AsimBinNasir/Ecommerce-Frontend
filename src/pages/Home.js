@@ -2,6 +2,7 @@ import { categories } from "../assets/mockData";
 import iPhone from "../assets/images/iphone-purple-16.jpg";
 import infoSection from "../components/infoSection.js";
 import categorySection from "../components/categorySection.js";
+import topProduct from "../components/topProduct.js";
 export default function Home() {
 
   // Create main section container
@@ -27,7 +28,7 @@ export default function Home() {
   ul.className = "space-y-4 bg-gray-100 p-3 border";
 
   // Create li elements using map
-  const liElements = categories.map((category, index) => {
+  const liElements = categories.map((category) => {
     const li = document.createElement("li");
     li.className = "flex items-center text-sm font-medium";
 
@@ -86,6 +87,7 @@ export default function Home() {
   // Append info and category sections
   section.appendChild(infoSection());
   section.appendChild(categorySection());
+  section.appendChild(topProduct());
 
   return section;
 
