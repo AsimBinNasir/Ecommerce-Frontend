@@ -4,7 +4,7 @@ import infoSection from "../components/infoSection.js";
 import categorySection from "../components/categorySection.js";
 import topProduct from "../components/topProduct.js";
 import Shop from "./Shop.js";
-export default function Home() {
+export default function Home(loadPage) {
 
   // Create main section container
   const section = document.createElement("div");
@@ -95,6 +95,19 @@ export default function Home() {
   // Reset className to avoid any unwanted styles
   shopPreview.className = "";
   section.appendChild(shopPreview);
+
+  const viewAllBtn = document.createElement("button");
+  viewAllBtn.textContent = "View All";
+  viewAllBtn.className = "block mx-auto bg-red-600 text-white font-bold px-8 py-2 rounded-md mt-1 hover:bg-red-700 transform transition-transform duration-500 hover:translate-x-1 hover:translate-y-1 hover:scale-110";
+
+  // Navigate to Shop page on click
+  viewAllBtn.addEventListener("click", () => {
+    loadPage("Shop"); // if you're using loadPage("Shop") to navigate between pages
+    window.scrollTo({ top: 0, behavior: "instant" });
+  });
+
+  // Append it after the preview
+  section.appendChild(viewAllBtn);
 
 
 

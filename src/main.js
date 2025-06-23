@@ -1,21 +1,28 @@
-import './style.css'
+import './style.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import Navbar from "./components/Navbar.js";
 import Home from "./pages/Home.js";
 import Shop from "./pages/Shop.js";
+import Footer from "./components/Footer.js";
 
 const app = document.getElementById("app");
 
 // Load page utility
 function loadPage(pageName) {
-  const old = document.getElementById("page-content");
-  if (old) old.remove();
+  // Remove old page content if any
+  const oldContent = document.getElementById("page-content");
+  if (oldContent) oldContent.remove();
 
+  // Remove old footer if any
+  const oldFooter = document.getElementById("page-footer");
+  if (oldFooter) oldFooter.remove();
+
+  // Load the new page
   let newPage;
-
   switch (pageName) {
     case "Home":
-      newPage = Home();
+      newPage = Home(loadPage);
       break;
     case "Shop":
       newPage = Shop();
@@ -28,8 +35,13 @@ function loadPage(pageName) {
 
   newPage.id = "page-content";
   app.appendChild(newPage);
+
+  // Re-append footer
+  const footer = Footer(loadPage);
+  footer.id = "page-footer";
+  app.appendChild(footer);
 }
 
 // Add navbar and load initial page
-app.appendChild(Navbar(loadPage));
-loadPage("Home");
+app.appendChild(Navbar(loadPage));  
+loadPage("Home");                   

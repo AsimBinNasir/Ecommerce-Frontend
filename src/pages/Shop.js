@@ -8,7 +8,7 @@ export default function Shop(limit = null) {
 
   // Create Card container
   const container = document.createElement("div");
-  container.className = "container mx-auto pt-4 pb-12";
+  container.className = "container mx-auto pt-4 pb-8";
   section.appendChild(container);
 
   // Create Title
