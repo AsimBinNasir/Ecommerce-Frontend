@@ -1,12 +1,12 @@
-import { createRandomStarRating }  from "../components/topProduct";
+import { createRandomStarRating } from "../components/topProduct";
 
-export default function Shop() {
+export default function Shop(limit = null) {
 
   // Create main section container
   const section = document.createElement("section");
   section.className = "bg-white mt-2 px-4 md:px-16 lg:px-24";
 
-    // Create Card container
+  // Create Card container
   const container = document.createElement("div");
   container.className = "container mx-auto pt-4 pb-12";
   section.appendChild(container);
@@ -25,8 +25,11 @@ export default function Shop() {
   const starRating = createRandomStarRating()
   console.log(starRating);
 
-  if (starRating.length > 0) {
-    starRating.forEach(product => {
+  // Apply limit if passed
+  const displayedProducts = limit ? starRating.slice(0, limit) : starRating;
+
+  if (displayedProducts.length > 0) {
+    displayedProducts.forEach(product => {
       const card = document.createElement("div");
       card.className = "bg-white p-4 rounded shadow relative border transform transition-transform duration-300 hover:scale-105 cursor-pointer";
 

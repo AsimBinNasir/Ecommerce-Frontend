@@ -3,12 +3,13 @@ import iPhone from "../assets/images/iphone-purple-16.jpg";
 import infoSection from "../components/infoSection.js";
 import categorySection from "../components/categorySection.js";
 import topProduct from "../components/topProduct.js";
+import Shop from "./Shop.js";
 export default function Home() {
 
   // Create main section container
   const section = document.createElement("div");
   section.className = "bg-white mt-2 px-4 md:px-16 lg:px-24";
-  
+
 
   // Create flex container
   const container = document.createElement("div");
@@ -89,6 +90,13 @@ export default function Home() {
   section.appendChild(infoSection());
   section.appendChild(categorySection());
   section.appendChild(topProduct());
+  const shopPreview = Shop(10); // Only 10 products
+
+  // Reset className to avoid any unwanted styles
+  shopPreview.className = "";
+  section.appendChild(shopPreview);
+
+
 
   return section;
 
