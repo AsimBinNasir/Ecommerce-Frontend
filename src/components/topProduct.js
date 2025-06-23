@@ -1,4 +1,12 @@
 import { mockData } from "../assets/mockData";
+export function createRandomStarRating() {
+  const fiveStarProducts = mockData
+    .map(product => {
+      product.randomRating = Math.floor(Math.random() * 3) + 3; // 3 to 5 stars
+      return product;
+    })
+  return fiveStarProducts;
+}
 
 export default function topProduct() {
   // Create Card container
@@ -17,16 +25,13 @@ export default function topProduct() {
   container.appendChild(grid);
 
   // Assign random rating to each product and filter 5-star ones
-  const fiveStarProducts = mockData
-    .map(product => {
-      product.randomRating = Math.floor(Math.random() * 3) + 3; // 3 to 5 stars
-      return product;
-    })
-    .filter(product => product.randomRating === 5)
+
+  const fiveStarProducts = createRandomStarRating()
+  const filterFiveStarProducts = fiveStarProducts.filter(product => product.randomRating === 5)
     .slice(0, 5); // Take first 5 five-star products
 
-  if (fiveStarProducts.length > 0) {
-    fiveStarProducts.forEach(product => {
+  if (filterFiveStarProducts.length > 0) {
+    filterFiveStarProducts.forEach(product => {
       const card = document.createElement("div");
       card.className = "bg-white p-4 rounded shadow relative border transform transition-transform duration-300 hover:scale-105 cursor-pointer";
 
@@ -89,3 +94,4 @@ export default function topProduct() {
 
   return container;
 }
+
