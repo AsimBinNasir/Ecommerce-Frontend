@@ -1,5 +1,5 @@
 import { mockData } from "../assets/mockData";
-import { addToCart } from "../utils/cart";
+import { addToCart } from "../utils/addProducts";
 
 export function createRandomStarRating() {
   const fiveStarProducts = mockData

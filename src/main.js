@@ -4,7 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Navbar from "./components/Navbar.js";
 import Home from "./pages/Home.js";
 import Shop from "./pages/Shop.js";
+import Cart from './pages/Cart.js';
 import Footer from "./components/Footer.js";
+import { updateCartBadge } from "./utils/addProducts.js"; 
 
 const app = document.getElementById("app");
 
@@ -27,6 +29,9 @@ function loadPage(pageName) {
     case "Shop":
       newPage = Shop();
       break;
+    case "Cart":
+      newPage = Cart();
+      break;
     default:
       newPage = document.createElement("section");
       newPage.className = "p-8 text-center";
@@ -43,5 +48,7 @@ function loadPage(pageName) {
 }
 
 // Add navbar and load initial page
-app.appendChild(Navbar(loadPage));  
+app.appendChild(Navbar(loadPage));
 loadPage("Home");                   
+
+updateCartBadge();

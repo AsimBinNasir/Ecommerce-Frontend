@@ -1,5 +1,9 @@
-export const cartItems = [];
+export let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
+// Save to localStorage every time it's updated
+function saveCartToLocalStorage() {
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
 // this function will update the cart badge
 export function updateCartBadge() {
   const badge = document.getElementById("cart-badge");
@@ -23,9 +27,14 @@ export function addToCart(products) {
     cartItems.push({ ...products, count: 1, });
   } else {
     existingItem.count++;
-    console.log(`Increased quantity of ${products.name} to ${existingItem.count}`);
   }
 
   console.log("Cart Items", cartItems);
-  updateCartBadge()
+
+  saveCartToLocalStorage();
+  updateCartBadge();
+}
+
+export function refreshCartData() {
+  cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 }

@@ -1,5 +1,5 @@
 import { createRandomStarRating } from "../components/topProduct";
-import { addToCart }  from "../utils/cart"
+import { addToCart }  from "../utils/addProducts"
 
 export default function Shop(limit = null) {
 

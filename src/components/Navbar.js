@@ -48,6 +48,12 @@ export default function Navbar(loadPage) {
   cartIcon.setAttribute("aria-hidden", "true");
   cartLink.appendChild(cartIcon);
 
+  cartIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+    loadPage("Cart");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   const cartBadge = document.createElement("span");
   cartBadge.id = "cart-badge";
   cartBadge.textContent = ""; // Empty initially
