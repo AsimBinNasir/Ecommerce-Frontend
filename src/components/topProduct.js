@@ -1,4 +1,6 @@
 import { mockData } from "../assets/mockData";
+import { addToCart } from "../utils/cart";
+
 export function createRandomStarRating() {
   const fiveStarProducts = mockData
     .map(product => {
@@ -72,6 +74,10 @@ export default function topProduct() {
       const afterHoverText = document.createElement("span");
       afterHoverText.className = "hidden group-hover:block";
       afterHoverText.textContent = "Add to Cart";
+
+      addtoCartButton.addEventListener("click", () => {
+        addToCart(product);
+      });
 
       addtoCartButton.appendChild(beforeHoverText);
       addtoCartButton.appendChild(afterHoverText);

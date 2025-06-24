@@ -40,11 +40,21 @@ export default function Navbar(loadPage) {
   rightIcons.className = "flex items-center space-x-4";
 
   const cartLink = document.createElement("a");
-  cartLink.href = "/cart";
+  cartLink.href = "#";
+  cartLink.className = "relative";
+
   const cartIcon = document.createElement("i");
   cartIcon.className = "fa fa-shopping-cart text-lg cursor-pointer";
   cartIcon.setAttribute("aria-hidden", "true");
   cartLink.appendChild(cartIcon);
+
+  const cartBadge = document.createElement("span");
+  cartBadge.id = "cart-badge";
+  cartBadge.textContent = ""; // Empty initially
+  cartBadge.className =
+    "hidden absolute -top-2 -right-2 bg-red-600 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full";
+  cartLink.appendChild(cartBadge);
+
 
   const loginButton = document.createElement("button");
   loginButton.className = "hidden md:block";
@@ -76,11 +86,11 @@ export default function Navbar(loadPage) {
     link.href = "#";
     link.className = "hover:underline";
     link.textContent = text;
-    
+
     link.addEventListener("click", () => {
-    loadPage(text); // dynamically load the component
-  });
-  
+      loadPage(text); // dynamically load the component
+    });
+
     navLinks.appendChild(link);
   });
 

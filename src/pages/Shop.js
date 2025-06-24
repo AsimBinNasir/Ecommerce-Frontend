@@ -1,4 +1,5 @@
 import { createRandomStarRating } from "../components/topProduct";
+import { addToCart }  from "../utils/cart"
 
 export default function Shop(limit = null) {
 
@@ -73,6 +74,10 @@ export default function Shop(limit = null) {
 
       addtoCartButton.appendChild(beforeHoverText);
       addtoCartButton.appendChild(afterHoverText);
+
+      addtoCartButton.addEventListener("click", () => {
+        addToCart(product);
+      });
 
       // Append elements to card
       card.appendChild(img);
