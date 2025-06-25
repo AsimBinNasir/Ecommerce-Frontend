@@ -5,13 +5,17 @@ import Navbar from "./components/Navbar.js";
 import Home from "./pages/Home.js";
 import Shop from "./pages/Shop.js";
 import Cart from './pages/Cart.js';
+import Checkout from "./pages/Checkout.js";
+import OrderConfirmation from "./pages/OrderConfirmation.js";
 import Footer from "./components/Footer.js";
-import { updateCartBadge } from "./utils/addProducts.js"; 
+import { refreshCartData, updateCartBadge } from "./utils/addProducts.js";
 
 const app = document.getElementById("app");
 
+
+
 // Load page utility
-function loadPage(pageName) {
+function loadPage(pageName, data=null) {
   // Remove old page content if any
   const oldContent = document.getElementById("page-content");
   if (oldContent) oldContent.remove();
@@ -30,7 +34,13 @@ function loadPage(pageName) {
       newPage = Shop();
       break;
     case "Cart":
-      newPage = Cart();
+      newPage = Cart(loadPage);
+      break;
+    case "Checkout":
+      newPage = Checkout(loadPage);
+      break;
+    case "OrderConfirmation":
+      newPage = OrderConfirmation(data);
       break;
     default:
       newPage = document.createElement("section");
@@ -49,6 +59,8 @@ function loadPage(pageName) {
 
 // Add navbar and load initial page
 app.appendChild(Navbar(loadPage));
-loadPage("Home");                   
+loadPage("Home");
+
 
 updateCartBadge();
+refreshCartData();

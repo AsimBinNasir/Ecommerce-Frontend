@@ -1,12 +1,18 @@
-import { cartItems, updateCartBadge } from "../utils/addProducts.js";
-import { refreshCartData } from "../utils/addProducts.js";
+import {
+  getCartItems,
+  refreshCartData,
+  removeFromCart,
+  incrementItemCount,
+  decrementItemCount,
+} from "../utils/addProducts.js";
 import AddressModal from "../components/Modal.js";
 
-refreshCartData();
+export default function Cart(loadPage) {
+  refreshCartData();
+  const cartItems = getCartItems();
 
-export default function Cart() {
   const section = document.createElement("section");
-  section.id = "page-content"
+  section.id = "page-content";
   section.className = "mx-auto py-8 min-h-96 px-4 md:px-16 lg:px-24";
 
   const container = document.createElement("div");
@@ -22,7 +28,7 @@ export default function Cart() {
 
   const heading = document.createElement("h3");
   heading.className = "text-2xl text-center font-semibold mb-4";
-  heading.textContent = "Your Cart";
+  heading.textContent = "Your Cart".toUpperCase();
   container.appendChild(heading);
 
   const totalContainer = document.createElement("div");
@@ -33,6 +39,7 @@ export default function Cart() {
   productContainer.className = "md:w-2/3";
   totalContainer.appendChild(productContainer);
 
+  // Header for cart items
   const cartItemDetails = document.createElement("div");
   cartItemDetails.className = "flex justify-between border-b items-center mb-4 text-xs font-bold";
   productContainer.appendChild(cartItemDetails);
@@ -52,6 +59,7 @@ export default function Cart() {
     infoRow.appendChild(info);
   });
 
+  // Cart Items
   cartItems.forEach(product => {
     const item = document.createElement("div");
     item.className = "flex items-center justify-between p-3 border-b";
@@ -92,11 +100,8 @@ export default function Cart() {
     decrementButton.textContent = "-";
     decrementButton.className = "text-xl font-bold px-1.5 border-r";
     decrementButton.addEventListener("click", () => {
-      if (product.count > 1) {
-        product.count--;
-        updateCartBadge();
-        refreshCart();
-      }
+      decrementItemCount(product.id);
+      refreshCart();
     });
     buttonDiv.appendChild(decrementButton);
 
@@ -109,8 +114,7 @@ export default function Cart() {
     incrementButton.textContent = "+";
     incrementButton.className = "text-xl px-1 border-l";
     incrementButton.addEventListener("click", () => {
-      product.count++;
-      updateCartBadge();
+      incrementItemCount(product.id);
       refreshCart();
     });
     buttonDiv.appendChild(incrementButton);
@@ -122,12 +126,8 @@ export default function Cart() {
     const removeButton = document.createElement("button");
     removeButton.className = "text-red-500 hover:text-red-700";
     removeButton.addEventListener("click", () => {
-      const index = cartItems.findIndex(item => item.id === product.id);
-      if (index > -1) {
-        cartItems.splice(index, 1);
-        updateCartBadge();
-        refreshCart();
-      }
+      removeFromCart(product.id);
+      refreshCart();
     });
 
     const trashIcon = document.createElement("i");
@@ -136,6 +136,7 @@ export default function Cart() {
     productInfoContainer.appendChild(removeButton);
   });
 
+  // Cart summary container
   const cartSummary = document.createElement("div");
   cartSummary.className = "md:w-1/3 bg-white p-6 rounded-lg shadow-md border mt-8 md:self-start";
   totalContainer.appendChild(cartSummary);
@@ -183,12 +184,12 @@ export default function Cart() {
   changeAdressButton.textContent = "Change Address";
   shippingDetails.appendChild(changeAdressButton);
 
+  // Modal for changing address
   const modal = AddressModal((newAddress) => {
     shippingtoSpan.textContent = newAddress;
   });
   container.appendChild(modal);
 
-  // Then add event to change button
   changeAdressButton.addEventListener("click", () => {
     modal.classList.remove("hidden");
   });
@@ -210,10 +211,17 @@ export default function Cart() {
   const proceedToCheckout = document.createElement("button");
   proceedToCheckout.className = "w-full py-2 text-white bg-red-600 hover:bg-red-700";
   proceedToCheckout.textContent = "Proceed to Checkout";
+  proceedToCheckout.addEventListener("click", (event) => {
+    event.preventDefault();
+    loadPage("Checkout");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   cartSummary.appendChild(proceedToCheckout);
 
+  // Refresh function to re-render cart UI
   function refreshCart() {
-    const refreshedCart = Cart();
+    const refreshedCart = Cart(loadPage);
     const old = document.getElementById("page-content");
     if (old) old.replaceWith(refreshedCart);
   }

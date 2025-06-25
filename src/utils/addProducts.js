@@ -1,10 +1,14 @@
 export let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 // Save to localStorage every time it's updated
-function saveCartToLocalStorage() {
+export function saveCartToLocalStorage() {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 }
-// this function will update the cart badge
+
+export function clearCart() {
+  localStorage.removeItem("cartItems");
+}
+
 export function updateCartBadge() {
   const badge = document.getElementById("cart-badge");
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.count, 0);
@@ -20,21 +24,48 @@ export function updateCartBadge() {
   }
 }
 
-// this function will add item to cart
-export function addToCart(products) {
-  const existingItem = cartItems.find(items => items.id === products.id);
+export function refreshCartData() {
+  cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+}
+
+export function getCartItems() {
+  return cartItems;
+}
+
+export function addToCart(product) {
+  const existingItem = cartItems.find(item => item.id === product.id);
   if (!existingItem) {
-    cartItems.push({ ...products, count: 1, });
+    cartItems.push({ ...product, count: 1 });
   } else {
     existingItem.count++;
   }
-
-  console.log("Cart Items", cartItems);
-
   saveCartToLocalStorage();
   updateCartBadge();
 }
 
-export function refreshCartData() {
-  cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+export function removeFromCart(productId) {
+  const index = cartItems.findIndex(item => item.id === productId);
+  if (index > -1) {
+    cartItems.splice(index, 1);
+    saveCartToLocalStorage();
+    updateCartBadge();
+  }
+}
+
+export function incrementItemCount(productId) {
+  const item = cartItems.find(i => i.id === productId);
+  if (item) {
+    item.count++;
+    saveCartToLocalStorage();
+    updateCartBadge();
+  }
+}
+
+export function decrementItemCount(productId) {
+  const item = cartItems.find(i => i.id === productId);
+  if (item && item.count > 1) {
+    item.count--;
+    saveCartToLocalStorage();
+    updateCartBadge();
+  }
 }
