@@ -7,6 +7,7 @@ import Shop from "./pages/Shop.js";
 import Cart from './pages/Cart.js';
 import Checkout from "./pages/Checkout.js";
 import OrderConfirmation from "./pages/OrderConfirmation.js";
+// import LogIn from "./components/LogIn.js";
 import Footer from "./components/Footer.js";
 import { refreshCartData, updateCartBadge } from "./utils/addProducts.js";
 
@@ -42,6 +43,9 @@ function loadPage(pageName, data=null) {
     case "OrderConfirmation":
       newPage = OrderConfirmation(data);
       break;
+    // case "LogIn":
+    //   newPage = LogIn();
+    //   break;
     default:
       newPage = document.createElement("section");
       newPage.className = "p-8 text-center";

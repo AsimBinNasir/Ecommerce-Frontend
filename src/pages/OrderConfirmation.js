@@ -27,11 +27,16 @@ export default function OrderConfirmation(orderInfo) {
     return row;
   }
 
+  const productsSummary = orderInfo.yourProduct
+  .map(product => `${product.name} × ${product.count}`)
+  .join(", ");
+
   infoContainer.appendChild(createInfoRow("Name", orderInfo.name));
   infoContainer.appendChild(createInfoRow("Email", orderInfo.email));
   infoContainer.appendChild(createInfoRow("Phone", orderInfo.phone));
   infoContainer.appendChild(createInfoRow("Address", `${orderInfo.address}, ${orderInfo.city} - ${orderInfo.zipcode}`));
   infoContainer.appendChild(createInfoRow("Payment Method", orderInfo.paymentMethod));
+  infoContainer.appendChild(createInfoRow("Your Product", productsSummary));
   if (orderInfo.paymentMethod === "Debit Card") {
     infoContainer.appendChild(createInfoRow("Total Paid", `$${orderInfo.total}`));
   }

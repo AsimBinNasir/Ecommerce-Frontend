@@ -1,3 +1,4 @@
+import LogIn from "./LogIn";
 export default function Navbar(loadPage) {
   const nav = document.createElement("nav");
   nav.className = "bg-white shadow-md";
@@ -65,6 +66,10 @@ export default function Navbar(loadPage) {
   const loginButton = document.createElement("button");
   loginButton.className = "hidden md:block";
   loginButton.textContent = "Login | Register";
+  loginButton.addEventListener("click", () => {
+    const modal = LogIn();
+    document.body.appendChild(modal);
+  });
 
   const userButton = document.createElement("button");
   userButton.className = "block md:hidden";
@@ -72,6 +77,9 @@ export default function Navbar(loadPage) {
   userIcon.className = "fa fa-user";
   userIcon.setAttribute("aria-hidden", "true");
   userButton.appendChild(userIcon);
+  userButton.addEventListener("click", () => {
+    loadPage("Register"); // dynamically load the component
+  });
 
   rightIcons.appendChild(cartLink);
   rightIcons.appendChild(loginButton);

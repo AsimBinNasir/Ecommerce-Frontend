@@ -1,5 +1,3 @@
-// components/Modal.js
-
 export default function AddressModal(onChangeCallback) {
   const modalOverlay = document.createElement("div");
   modalOverlay.className =

@@ -455,6 +455,11 @@ export default function Checkout(loadPage) {
       city: shippingCityInput.value.trim(),
       zipcode: shippingZipInput.value.trim(),
       paymentMethod: cardRadio.checked ? "Debit Card" : "Cash on Delivery",
+      yourProduct: cartItems.map((product) => ({
+        name: product.name,
+        price: product.price,
+        count: product.count,
+      })),
       total: cartItems.reduce((total, product) => total + product.price * product.count, 0).toFixed(2),
     };
 
