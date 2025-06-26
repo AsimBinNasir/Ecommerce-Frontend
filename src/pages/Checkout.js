@@ -473,13 +473,16 @@ export default function Checkout(loadPage) {
       };
     }
 
-    requiredInputs.forEach((input) => {
+
+
+    for (let input of requiredInputs) {
       if (!input.checkValidity()) {
-        input.reportValidity();  // Show native popup
+        alert(`Please enter a valid ${input.name || input.placeholder || "field"}`);
+        input.focus(); // Optional: Focus the invalid input
         allValid = false;
-        return; // stops at the first invalid input
+        break; // Stop checking after the first invalid input
       }
-    });
+    }
 
     if (!allValid) return;
 
