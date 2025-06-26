@@ -1,5 +1,5 @@
 import { categories } from "../assets/mockData";
-import iPhone from "../assets/images/iphone-purple-16.jpg";
+import iPhone from "../assets/Images/iphone-purple-16.jpg";
 import infoSection from "../components/infoSection.js";
 import categorySection from "../components/categorySection.js";
 import topProduct from "../components/topProduct.js";
