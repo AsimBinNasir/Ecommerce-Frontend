@@ -78,6 +78,9 @@ export default function Home(loadPage) {
   const button = document.createElement("button");
   button.className = "bg-red-600 text-white font-bold px-8 py-2 rounded-md mt-4 hover:bg-red-700 transform transition-transform duration-500 hover:translate-x-2 hover:translate-y-2 hover:scale-110";
   button.textContent = "SHOP NOW";
+  button.addEventListener("click", () => {
+      loadPage("Shop"); // dynamically load the component
+    });
 
   overlay.append(p1, h2, p2, button);
   rightDiv.appendChild(overlay);
