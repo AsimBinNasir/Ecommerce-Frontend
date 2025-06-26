@@ -67,6 +67,11 @@ export default function Navbar(loadPage) {
   loginButton.className = "hidden md:block";
   loginButton.textContent = "Login | Register";
   loginButton.addEventListener("click", () => {
+    // Remove existing modal if any
+    const existingModal = document.querySelector(".modal-overlay");
+    if (existingModal) existingModal.remove();
+
+    // Append a fresh login modal
     const modal = LogIn();
     document.body.appendChild(modal);
   });
@@ -78,7 +83,11 @@ export default function Navbar(loadPage) {
   userIcon.setAttribute("aria-hidden", "true");
   userButton.appendChild(userIcon);
   userButton.addEventListener("click", () => {
-    loadPage("Register"); // dynamically load the component
+    const existingModal = document.querySelector(".modal-overlay");
+    if (existingModal) existingModal.remove();
+
+    const modal = LogIn();
+    document.body.appendChild(modal);
   });
 
   rightIcons.appendChild(cartLink);
